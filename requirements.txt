@@ -10,3 +10,4 @@ torch
 numpy
 jsonschema
 IPython
+sentence-transformers
