@@ -1,0 +1,11 @@
+streamlit
+langchain
+langchain_community
+langchain_ollama
+huggingface_hub
+transformers
+pinecone-client
+cloudinary
+torch
+numpy
+jsonschema
