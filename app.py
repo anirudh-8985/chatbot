@@ -4,7 +4,9 @@ import os
 import time
 from langchain.prompts.chat import ChatPromptTemplate
 from langchain_ollama import ChatOllama
-from langchain_community.embeddings import HuggingFaceBgeEmbeddings
+# from langchain_community.embeddings import HuggingFaceBgeEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
+
 from pinecone import Pinecone, ServerlessSpec
 import cloudinary
 import cloudinary.uploader
@@ -15,7 +17,7 @@ from IPython.display import Audio
 def initialize_embedding_model(model_name, device="cpu", normalize_embeddings=True):
     model_kwargs = {"device": device}
     encode_kwargs = {"normalize_embeddings": normalize_embeddings}
-    return HuggingFaceBgeEmbeddings(model_name=model_name, model_kwargs=model_kwargs, encode_kwargs=encode_kwargs)
+    return HuggingFaceEmbeddings(model_name=model_name, model_kwargs=model_kwargs, encode_kwargs=encode_kwargs)
 
 MODEL_NAME = "intfloat/multilingual-e5-large-instruct"
 embedding_bge = initialize_embedding_model(MODEL_NAME)
