@@ -9,3 +9,4 @@ cloudinary
 torch
 numpy
 jsonschema
+IPython
