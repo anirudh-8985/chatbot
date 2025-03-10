@@ -60,82 +60,87 @@ def query_pinecone(query_text, top_k=3):
     
     return context, audio_file_name
 
-# Prompt Template
-template = """
-You are given retrieved documents {chunks} to a user question {question}. Generate the response both in Telugu and English based on the context. Ensure it is directly based on the context provided:
-    1) Generate the response in Telugu (avoid repeating points).
-    2) Generate the response in English (avoid repeating points).
+# # Prompt Template
+# template = """
+# You are given retrieved documents {chunks} to a user question {question}. Generate the response both in Telugu and English based on the context. Ensure it is directly based on the context provided:
+#     1) Generate the response in Telugu (avoid repeating points).
+#     2) Generate the response in English (avoid repeating points).
 
-Output format:
-{{
-  "response_te": "Telugu response here",
-  "response_en": "English response here"
-}}
-"""
+# Output format:
+# {{
+#   "response_te": "Telugu response here",
+#   "response_en": "English response here"
+# }}
+# """
 
-def build_prompt(chunks: list, question: str) -> str:
-    """
-    Builds the prompt with the extracted chunks and the user’s question.
+# def build_prompt(chunks: list, question: str) -> str:
+#     """
+#     Builds the prompt with the extracted chunks and the user’s question.
 
-    Args:
-        chunks (list): Extracted chunks of text.
-        question (str): The user's question based on the chunks.
+#     Args:
+#         chunks (list): Extracted chunks of text.
+#         question (str): The user's question based on the chunks.
 
-    Returns:
-        str: Constructed prompt for Ollama model.
-    """
-    chunks_str = "\n".join(chunks)
-    return template.format(chunks=chunks_str, question=question)
+#     Returns:
+#         str: Constructed prompt for Ollama model.
+#     """
+#     chunks_str = "\n".join(chunks)
+#     return template.format(chunks=chunks_str, question=question)
 
-# Initialize the LLM
-llm = ChatOllama(
-    model="llama3.2",
-    temperature=0.1,
-)
+# # Initialize the LLM
+# llm = ChatOllama(
+#     model="llama3.2",
+#     temperature=0.1,
+# )
 
-# Cloudinary Configuration
-cloudinary.config(
-    cloud_name="dor6f9djm",
-    api_key="913583522522472",
-    api_secret="Dv24O8YWHgt3Hq7HVkeq8pokfeU"
-)
+# # Cloudinary Configuration
+# cloudinary.config(
+#     cloud_name="dor6f9djm",
+#     api_key="913583522522472",
+#     api_secret="Dv24O8YWHgt3Hq7HVkeq8pokfeU"
+# )
 
-def search_audio_by_name(filename):
-    response = cloudinary.api.resources(
-        type="upload",
-        resource_type="video",
-        prefix=filename
-    )
-    return response["resources"][0]["secure_url"] if response["resources"] else "No file found."
+# def search_audio_by_name(filename):
+#     response = cloudinary.api.resources(
+#         type="upload",
+#         resource_type="video",
+#         prefix=filename
+#     )
+#     return response["resources"][0]["secure_url"] if response["resources"] else "No file found."
 
 st.title("AudioScout Chatbot")
 question = st.text_input("Ask a question:")
 if st.button("Get Answer") and question:
     context, audio_file_name = query_pinecone(question)
-    prompt = build_prompt(context, question)
-    chat_prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are a helpful assistant trained to generate Telugu and English responses."),
-        ("human", "{input}"),
-    ])
-    chain = chat_prompt | llm
-    response = chain.invoke({"input": prompt})
+    # prompt = build_prompt(context, question)
+    # chat_prompt = ChatPromptTemplate.from_messages([
+    #     ("system", "You are a helpful assistant trained to generate Telugu and English responses."),
+    #     ("human", "{input}"),
+    # ])
+    # chain = chat_prompt | llm
+    # response = chain.invoke({"input": prompt})
     
-    json_content = response.content.replace("\n", "")
+    # json_content = response.content.replace("\n", "")
     
-    # Audio search
-    audio_file_name, _ = os.path.splitext(audio_file_name)
-    audio_url = search_audio_by_name(audio_file_name)
+    # # Audio search
+    # audio_file_name, _ = os.path.splitext(audio_file_name)
+    # audio_url = search_audio_by_name(audio_file_name)
     
-    if "No file found" not in audio_url:
-        st.audio(audio_url)
-    else:
-        st.warning("Audio file not found.")
+    # if "No file found" not in audio_url:
+    #     st.audio(audio_url)
+    # else:
+    #     st.warning("Audio file not found.")
     
-    try:
-        response_json = json.loads(json_content)
-        st.subheader("Telugu Response:")
-        st.write(response_json["response_te"])
-        st.subheader("English Response:")
-        st.write(response_json["response_en"])
-    except json.JSONDecodeError:
-        st.error("Error parsing response.")
+    # try:
+    #     response_json = json.loads(json_content)
+    #     st.subheader("Telugu Response:")
+    #     st.write(response_json["response_te"])
+    #     st.subheader("English Response:")
+    #     st.write(response_json["response_en"])
+    # except json.JSONDecodeError:
+    #     st.error("Error parsing response.")
+
+    st.subheader("Chunks:")
+    st.write(context)
+    st.subheader("Audio name")
+    st.write(audio_file_name)
