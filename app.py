@@ -56,7 +56,11 @@ def query_pinecone(query_text, top_k=3):
     results = index.query(vector=query_embedding, top_k=top_k, include_metadata=True)
     
     context = [match['metadata']['text'] for match in results["matches"]]
-    audio_file_name = results["matches"][0]['metadata'].get("audio_file_name", "") if results["matches"] else ""
+    audio_file_name = ""
+    if results["matches"]:
+        audio_file_name = results["matches"][0]['metadata'].get("audio_file_name", "")
+
+    # audio_file_name = results["matches"][0]['metadata'].get("audio_file_name", "") if results["matches"] else ""
     
     return context, audio_file_name
 
