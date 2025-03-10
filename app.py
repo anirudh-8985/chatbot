@@ -61,9 +61,9 @@ def query_pinecone(query_text, top_k=3):
 st.title("AudioScout Chatbot")
 question = st.text_input("Ask a question:")
 if st.button("Get Answer") and question:
-    context, audio_file_name = query_pinecone(question)
+    # context, audio_file_name = query_pinecone(question)
 
     st.subheader("Chunks:")
-    st.write(context)
+    # st.write(context)
     st.subheader("Audio name")
-    st.write(audio_file_name)
+    # st.write(audio_file_name)
