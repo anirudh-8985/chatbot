@@ -22,8 +22,7 @@ embedding_bge = initialize_embedding_model(MODEL_NAME)
 
 # Initialize Pinecone
 def initialize_pinecone():
-    os.environ['PINECONE_API_KEY'] = 'your_pinecone_api_key_here'
-    return Pinecone(api_key=os.environ['PINECONE_API_KEY'])
+    return Pinecone(api_key='pcsk_3CQZqt_M3GaEapEbngsNymUEnyGagoVWgg6EhwN8nfSMoWSTbbiipW7tjJZhV3UwpKccTZ')
 
 pc = initialize_pinecone()
 index_name = "audioscoutmultifinal"
