@@ -2,6 +2,7 @@ streamlit
 langchain
 langchain_community
 langchain-huggingface
+python==3.10
 
 langchain_ollama
 huggingface_hub
