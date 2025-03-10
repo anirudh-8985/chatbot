@@ -1,7 +1,5 @@
 import asyncio
 
-
-
 import streamlit as st
 import json
 import os
@@ -17,10 +15,6 @@ import cloudinary.uploader
 import cloudinary.api
 from IPython.display import Audio
 
-try:
-    asyncio.get_running_loop()
-except RuntimeError:
-    asyncio.set_event_loop(asyncio.new_event_loop())
 # Initialize embedding model
 def initialize_embedding_model(model_name, device="cpu", normalize_embeddings=True):
     model_kwargs = {"device": device}
