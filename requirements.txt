@@ -2,8 +2,6 @@ streamlit
 langchain
 langchain_community
 langchain-huggingface
-python
-
 langchain_ollama
 huggingface_hub
 transformers
