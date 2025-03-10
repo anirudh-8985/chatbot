@@ -4,4 +4,6 @@ langchain==0.3.14
 langchain_community==0.3.14
 langchain_ollama==0.2.2
 huggingface_hub==0.27.1
+pinecone-client==5.4.2
+
 
