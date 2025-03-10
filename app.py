@@ -9,7 +9,7 @@ from pinecone import Pinecone, ServerlessSpec
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-from IPython.display import Audio
+# from IPython.display import Audio
 
 # Initialize embedding model
 def initialize_embedding_model(model_name, device="cpu", normalize_embeddings=True):
